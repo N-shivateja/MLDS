@@ -1,0 +1,36 @@
+from textblob import TextBlob 
+
+feedback1="i love the movie"
+feedback2="the mobile is bad"
+blob1=TextBlob(feedback1)
+blob2=TextBlob(feedback2)   
+print(blob1.sentiment)
+print(blob2.sentiment)
+
+import tweepy
+from tweepy import OAuthHandler
+from textblob import TextBlob
+
+consumer_key = 'P87Lj1VbalO7FX7FM3rBeQxyQ'
+consumer_secret = 'cTcf7EP1pp11xwa0qPaTmmDCKVQAjwnkaZimSRcSIBCPXIPFTZ'
+access_token = '1520778656041541632-IY1UorcKgiv2h0BVuxbR1jKOnbXJG1'
+access_token_secret = 'msd5j5ARjsBP4qNebDZS5MPVTwL4Ryf11zGivQse2pbYd'
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+# public_tweets=api.search_tweets(q="iphone", lang="en")
+tweets = api.user_timeline(screen_name="Username of Twitter account", count=200)
+
+for tweet in public_tweets:
+    print(tweet.text)
+    analysis=TextBlob(tweet.text)
+    print(analysis.sentiment)
+    if analysis.sentiment[0] > 0:
+            print('positive')
+    elif analysis.sentiment[0]< 0:
+            print ('negative')
+    else:
+           print('neutral')
+
+
